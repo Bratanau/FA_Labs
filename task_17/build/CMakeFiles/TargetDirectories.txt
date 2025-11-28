@@ -1,0 +1,6 @@
+/home/lya/FA_labs/package_1/task_7/build/CMakeFiles/task_7.dir
+/home/lya/FA_labs/package_1/task_7/build/CMakeFiles/edit_cache.dir
+/home/lya/FA_labs/package_1/task_7/build/CMakeFiles/rebuild_cache.dir
+/home/lya/FA_labs/package_1/task_7/build/tests/CMakeFiles/test_task7.dir
+/home/lya/FA_labs/package_1/task_7/build/tests/CMakeFiles/edit_cache.dir
+/home/lya/FA_labs/package_1/task_7/build/tests/CMakeFiles/rebuild_cache.dir

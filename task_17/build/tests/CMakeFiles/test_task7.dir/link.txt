@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/test_task7.dir/main_test.o CMakeFiles/test_task7.dir/__/src/number_utils.o -o test_task7  -lm 
