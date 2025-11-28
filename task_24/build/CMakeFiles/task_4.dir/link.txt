@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/task_4.dir/src/main.o CMakeFiles/task_4.dir/src/over_scanf.o -o task_4  -lm 

@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/task_1.dir/src/main.o CMakeFiles/task_1.dir/src/has_finite_representation.o -o task_1  -lm 
