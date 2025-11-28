@@ -1,7 +1,7 @@
 include_directories(include)
 
-add_executable(task_4 
+add_executable(task_24 
     src/main.c 
-    src/over_scanf.c)
+    src/cust_scanf.c)
 
-target_link_libraries(task_4 m)
+target_link_libraries(task_24 m)

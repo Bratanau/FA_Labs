@@ -12,20 +12,13 @@ typedef struct {
     int error_code;   // Код ошибки
 } parser_state_t;
 
-#define CHECK_EOF(state) \ // проверяем конец ввода
-    if ((state)->input_eof) { \
-        (state)->error_code = OVER_SCANF_END_OF_INPUT; \
-        return -1; \
-    }
-
-#define SET_ERROR(state, code) \ // код ошибки
-    do { \
-        (state)->error_code = (code); \
-        return -1; \
-    } while(0)
+int set_error(parser_state_t *state, int code) { // код ошибки
+    state->error_code = code;
+    return -1;
+}
 
 static void skip_whitespace(parser_state_t *state) {
-    if (state->file) {
+    if (state->file) { // для файла
         int c;
         while ((c = fgetc(state->file)) != EOF && isspace(c)) {
             state->consumed_chars++;
@@ -33,15 +26,15 @@ static void skip_whitespace(parser_state_t *state) {
         if (c != EOF) {
             ungetc(c, state->file);
         } else {
-            state->input_eof = 1;
+            state->input_eof = 1; // конец ввода
         }
-    } else {
+    } else { // для строки
         while (*state->input && isspace(*state->input)) {
             state->input++;
             state->consumed_chars++;
         }
         if (!*state->input) {
-            state->input_eof = 1;
+            state->input_eof = 1; 
         }
     }
 }
@@ -72,7 +65,7 @@ static void unget_char(parser_state_t *state, int c) {
     }
 }
 
-static over_scanf_status_t parse_roman_numeral(parser_state_t *state, int *result) {
+static over_scanf_status_t parse_roman(parser_state_t *state, int *result) {
     const char *romans = "IVXLCDM";
     int values[] = {1, 5, 10, 50, 100, 500, 1000};
     int len = strlen(romans);
@@ -138,33 +131,31 @@ static over_scanf_status_t parse_zeckendorf(parser_state_t *state, unsigned int 
         }
     }
 
-    if (buf_len == 0) {
+    if (buf_len == 0 || buffer[buf_len - 1] != '1') {
         state->consumed_chars = start_pos;
         return OVER_SCANF_INVALID_INPUT;
     }
 
-    if (buffer[buf_len - 1] != '1') {
-        state->consumed_chars = start_pos;
-        return OVER_SCANF_INVALID_INPUT;
-    }
-
-    unsigned int value = 0;
-    unsigned int fib_prev = 1, fib_curr = 1;
-    for (int i = 0; i < buf_len; i++) {
-        if (buffer[i] == '1') {
-            if (i == 0) {
-                value += fib_curr;
-            } else {
-                unsigned int next_fib = fib_prev + fib_curr;
-                fib_prev = fib_curr;
-                fib_curr = next_fib;
-                value += fib_curr;
-            }
-        } else if (i > 0) {
-            unsigned int next_fib = fib_prev + fib_curr;
-            fib_prev = fib_curr;
-            fib_curr = next_fib;
+    for (int i = 0; i < buf_len-1; i++) {
+        if (buffer[i] == '1' && buffer[i + 1] == '1') {
+            state->consumed_chars = start_pos;
+            return OVER_SCANF_INVALID_INPUT;
         }
+    }
+    unsigned int value = 0;
+    unsigned int fib[32];
+    fib[0] = 1;
+    fib[1] = 2;
+    for (int i = 2; i < 32; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+
+    int pos = 0; 
+    for (int i = buf_len - 1; i >= 0; i--) {
+        if (buffer[i] == '1') {
+            value += fib[pos];
+        }
+        pos++;
     }
 
     *result = value;
@@ -191,59 +182,39 @@ static over_scanf_status_t parse_custom_base(parser_state_t *state, int *result,
 
     if (c == EOF) {
         state->consumed_chars = start_pos;
-        return OVER_SCANF_INVALID_INPUT;
+        return OVER_SCANF_INVALID_INPUT; 
     }
 
     long long value = 0;
     int has_digits = 0;
 
     while (c != EOF) {
+        int digit;
         if (uppercase_only) {
             if (c >= 'A' && c <= 'Z') {
-                int digit = c - 'A' + 10;
-                if (digit < base) {
-                    value = value * base + digit;
-                    has_digits = 1;
-                } else {
-                    unget_char(state, c);
-                    break;
-                }
+                digit = c - 'A' + 10;
             } else if (c >= '0' && c <= '9') {
-                int digit = c - '0';
-                if (digit < base) {
-                    value = value * base + digit;
-                    has_digits = 1;
-                } else {
-                    unget_char(state, c);
-                    break;
-                }
+                digit = c - '0';
             } else {
                 unget_char(state, c);
                 break;
             }
         } else {
             if (c >= 'a' && c <= 'z') {
-                int digit = c - 'a' + 10;
-                if (digit < base) {
-                    value = value * base + digit;
-                    has_digits = 1;
-                } else {
-                    unget_char(state, c);
-                    break;
-                }
+                digit = c - 'a' + 10;
             } else if (c >= '0' && c <= '9') {
-                int digit = c - '0';
-                if (digit < base) {
-                    value = value * base + digit;
-                    has_digits = 1;
-                } else {
-                    unget_char(state, c);
-                    break;
-                }
+                digit = c - '0';
             } else {
                 unget_char(state, c);
                 break;
             }
+        }
+        if (digit < base) {
+            value = value * base + digit;
+            has_digits = 1;
+        } else {
+            unget_char(state, c);
+            break;
         }
         c = get_char(state);
     }
@@ -253,10 +224,7 @@ static over_scanf_status_t parse_custom_base(parser_state_t *state, int *result,
         return OVER_SCANF_INVALID_INPUT;
     }
 
-    if (sign == 1 && value > INT_MAX) {
-        state->consumed_chars = start_pos;
-        return OVER_SCANF_INVALID_INPUT;
-    } else if (sign == -1 && value > (long long)INT_MAX + 1) {
+    if (value > INT_MAX) {
         state->consumed_chars = start_pos;
         return OVER_SCANF_INVALID_INPUT;
     }
@@ -273,21 +241,21 @@ static int parse_format(parser_state_t *state, va_list args) {
         if (*state->fmt == '%') {
             state->fmt++;
 
-            while (*state->fmt && strchr("hlL", *state->fmt)) {
+            while (*state->fmt && strchr("hlL", *state->fmt)) { // пропускаем спецификаторы размера
                 state->fmt++;
             }
 
             if (*state->fmt == '\0') {
-                SET_ERROR(state, OVER_SCANF_INVALID_FORMAT);
+                set_error(state, OVER_SCANF_INVALID_FORMAT);
             }
 
             char spec = *state->fmt;
             state->fmt++;
 
-            if (spec == 'R' && *state->fmt == 'o') {
+            if (spec == 'R' && *state->fmt == 'o') { 
                 state->fmt++;
                 int *ptr = va_arg(args, int*);
-                over_scanf_status_t status = parse_roman_numeral(state, ptr);
+                over_scanf_status_t status = parse_roman(state, ptr);
                 if (status != OVER_SCANF_SUCCESS) {
                     return -1;
                 }
@@ -325,7 +293,7 @@ static int parse_format(parser_state_t *state, va_list args) {
                 }
                 state->matched_items++;
             } else {
-                SET_ERROR(state, OVER_SCANF_UNKNOWN_FLAG);
+                set_error(state, OVER_SCANF_UNKNOWN_FLAG);
             }
         } else {
             if (isspace(*state->fmt)) {

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lya/FA_labs/package_2/task_4
+CMAKE_SOURCE_DIR = /home/lya/FA_labs/package_2/task_24
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lya/FA_labs/package_2/task_4/build
+CMAKE_BINARY_DIR = /home/lya/FA_labs/package_2/task_24/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lya/FA_labs/package_2/task_4/build/CMakeFiles /home/lya/FA_labs/package_2/task_4/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lya/FA_labs/package_2/task_24/build/CMakeFiles /home/lya/FA_labs/package_2/task_24/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lya/FA_labs/package_2/task_4/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lya/FA_labs/package_2/task_24/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,47 +117,47 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named task_4
+# Target rules for targets named task_24
 
 # Build rule for target.
-task_4: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 task_4
-.PHONY : task_4
+task_24: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 task_24
+.PHONY : task_24
 
 # fast build rule for target.
-task_4/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_4.dir/build.make CMakeFiles/task_4.dir/build
-.PHONY : task_4/fast
+task_24/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_24.dir/build.make CMakeFiles/task_24.dir/build
+.PHONY : task_24/fast
+
+# target to build an object file
+src/cust_scanf.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_24.dir/build.make CMakeFiles/task_24.dir/src/cust_scanf.o
+.PHONY : src/cust_scanf.o
+
+# target to preprocess a source file
+src/cust_scanf.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_24.dir/build.make CMakeFiles/task_24.dir/src/cust_scanf.i
+.PHONY : src/cust_scanf.i
+
+# target to generate assembly for a file
+src/cust_scanf.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_24.dir/build.make CMakeFiles/task_24.dir/src/cust_scanf.s
+.PHONY : src/cust_scanf.s
 
 # target to build an object file
 src/main.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_4.dir/build.make CMakeFiles/task_4.dir/src/main.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_24.dir/build.make CMakeFiles/task_24.dir/src/main.o
 .PHONY : src/main.o
 
 # target to preprocess a source file
 src/main.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_4.dir/build.make CMakeFiles/task_4.dir/src/main.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_24.dir/build.make CMakeFiles/task_24.dir/src/main.i
 .PHONY : src/main.i
 
 # target to generate assembly for a file
 src/main.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_4.dir/build.make CMakeFiles/task_4.dir/src/main.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_24.dir/build.make CMakeFiles/task_24.dir/src/main.s
 .PHONY : src/main.s
-
-# target to build an object file
-src/over_scanf.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_4.dir/build.make CMakeFiles/task_4.dir/src/over_scanf.o
-.PHONY : src/over_scanf.o
-
-# target to preprocess a source file
-src/over_scanf.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_4.dir/build.make CMakeFiles/task_4.dir/src/over_scanf.i
-.PHONY : src/over_scanf.i
-
-# target to generate assembly for a file
-src/over_scanf.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/task_4.dir/build.make CMakeFiles/task_4.dir/src/over_scanf.s
-.PHONY : src/over_scanf.s
 
 # Help Target
 help:
@@ -167,13 +167,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... task_4"
+	@echo "... task_24"
+	@echo "... src/cust_scanf.o"
+	@echo "... src/cust_scanf.i"
+	@echo "... src/cust_scanf.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/over_scanf.o"
-	@echo "... src/over_scanf.i"
-	@echo "... src/over_scanf.s"
 .PHONY : help
 
 

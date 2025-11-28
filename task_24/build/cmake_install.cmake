@@ -1,4 +1,4 @@
-# Install script for directory: /home/lya/FA_labs/package_2/task_4
+# Install script for directory: /home/lya/FA_labs/package_2/task_24
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/lya/FA_labs/package_2/task_4/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/lya/FA_labs/package_2/task_24/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

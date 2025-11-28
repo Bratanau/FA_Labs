@@ -15,7 +15,7 @@ typedef enum {
     OVER_SCANF_UNKNOWN_FLAG,
     OVER_SCANF_INVALID_BASE,
     OVER_SCANF_END_OF_INPUT
-} overio_status_t;
+} over_scanf_status_t;
 
 int overfscanf(FILE *stream, const char *format, ...);
 

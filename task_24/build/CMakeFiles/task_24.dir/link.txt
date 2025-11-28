@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/task_24.dir/src/main.o CMakeFiles/task_24.dir/src/cust_scanf.o -o task_24  -lm 
