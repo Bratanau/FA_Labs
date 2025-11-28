@@ -1,0 +1,3 @@
+/home/lya/FA_labs/package_3/task_1/build/CMakeFiles/task_1.dir
+/home/lya/FA_labs/package_3/task_1/build/CMakeFiles/edit_cache.dir
+/home/lya/FA_labs/package_3/task_1/build/CMakeFiles/rebuild_cache.dir

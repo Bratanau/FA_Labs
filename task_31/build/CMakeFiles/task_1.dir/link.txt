@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/task_1.dir/src/binary.o CMakeFiles/task_1.dir/src/main.o -o task_1 
