@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic -Wl,--subsystem,console CMakeFiles/task_5_run.dir/src/main.o CMakeFiles/task_5_run.dir/src/functions.o -o task_5_run  -lm 
